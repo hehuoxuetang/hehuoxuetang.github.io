@@ -45,6 +45,96 @@
       }
     }
   </style>
+  <style>
+    /* 文档预览模态框样式 */
+    #docPreviewModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      overflow: auto;
+    }
+    
+    #modalContent {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 1200px;
+      max-height: 90vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #modalHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    #modalTitle {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #111827;
+    }
+    
+    #closeModalBtn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #6b7280;
+      padding: 5px;
+      transition: color 0.2s;
+    }
+    
+    #closeModalBtn:hover {
+      color: #111827;
+    }
+    
+    #docIframe {
+      width: 100%;
+      height: calc(90vh - 100px);
+      border: none;
+    }
+    
+    /* 加载动画 */
+    #loadingIndicator {
+      display: none;
+      text-align: center;
+      padding: 50px;
+      color: #6b7280;
+    }
+    
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #3b82f6;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* 针对示例文章的特殊处理 */
+    .sample-article .read-more {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 font-sans text-dark">
   <!-- 头部导航 -->
@@ -77,20 +167,23 @@
     <section class="mb-8">
       <div class="bg-white rounded-lg shadow-sm p-1 overflow-x-auto">
         <nav class="flex space-x-1">
-          <button class="px-6 py-3 rounded-md bg-primary text-white font-medium flex-shrink-0 transition-smooth hover:bg-primary/90">
+          <button class="px-6 py-3 rounded-md bg-primary text-white font-medium flex-shrink-0 transition-smooth hover:bg-primary/90" data-category="all">
             <i class="fa fa-th-large mr-2"></i>全部
           </button>
-          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth">
+          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth" data-category="hard">
             <i class="fa fa-microchip mr-2"></i>硬件
           </button>
-          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth">
+          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth" data-category="driver">
             <i class="fa fa-cogs mr-2"></i>驱动
           </button>
-          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth">
+          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth" data-category="mid">
             <i class="fa fa-plug mr-2"></i>中间件
           </button>
-          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth">
+          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth" data-category="tool">
             <i class="fa fa-wrench mr-2"></i>工具
+          </button>
+          <button class="px-6 py-3 rounded-md hover:bg-gray-100 text-dark font-medium flex-shrink-0 transition-smooth" data-category="fw">
+            <i class="fa fa-sitemap mr-2"></i>框架
           </button>
         </nav>
       </div>
@@ -101,7 +194,7 @@
       <h2 class="text-xl font-bold mb-6 text-dark/80">最新文章</h2>
       <div class="space-y-6">
         <!-- 文章卡片 1 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover">
+        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="hard">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
@@ -126,15 +219,15 @@
                   <i class="fa fa-comment mr-1"></i> 42
                 </span>
               </div>
-              <button class="text-primary font-medium hover:text-primary/80 transition-smooth">
+              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
                 阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </button>
+              </a>
             </div>
           </div>
         </article>
 
         <!-- 文章卡片 2 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover">
+        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="driver">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
@@ -159,15 +252,15 @@
                   <i class="fa fa-comment mr-1"></i> 78
                 </span>
               </div>
-              <button class="text-primary font-medium hover:text-primary/80 transition-smooth">
+              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
                 阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </button>
+              </a>
             </div>
           </div>
         </article>
 
         <!-- 文章卡片 3 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover">
+        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="mid">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
@@ -192,15 +285,15 @@
                   <i class="fa fa-comment mr-1"></i> 56
                 </span>
               </div>
-              <button class="text-primary font-medium hover:text-primary/80 transition-smooth">
+              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
                 阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </button>
+              </a>
             </div>
           </div>
         </article>
 
         <!-- 文章卡片 4 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover">
+        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="tool">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
@@ -225,9 +318,42 @@
                   <i class="fa fa-comment mr-1"></i> 94
                 </span>
               </div>
-              <button class="text-primary font-medium hover:text-primary/80 transition-smooth">
+              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
                 阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </button>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 实际文档卡片 -->
+        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="fw">
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <span class="inline-block px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full mb-3">
+                  <i class="fa fa-sitemap mr-1"></i>框架
+                </span>
+                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
+                  软件模块化的目录约定
+                </h3>
+              </div>
+              <span class="text-sm text-gray-500">2023-12-20</span>
+            </div>
+            <p class="text-gray-600 line-clamp-3 mb-4">
+              本文档详细介绍了软件模块化开发的目录结构约定，包括各模块的命名规范、目录层级设计原则、文件组织方式等内容，旨在帮助开发团队建立统一的代码组织结构，提高代码的可维护性和可读性。
+            </p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-500 flex items-center">
+                  <i class="fa fa-eye mr-1"></i> 876
+                </span>
+                <span class="text-sm text-gray-500 flex items-center">
+                  <i class="fa fa-comment mr-1"></i> 23
+                </span>
+              </div>
+              <a href="doc/fw/软件模块化的目录约定.pdf" target="_blank" class="text-primary font-medium hover:text-primary/80 transition-smooth flex items-center" onclick="showDocPreview('doc/fw/软件模块化的目录约定.pdf', '软件模块化的目录约定')">
+                <i class="fa fa-file-pdf-o mr-2"></i>打开文档
+              </a>
             </div>
           </div>
         </article>
@@ -239,11 +365,26 @@
           <i class="fa fa-refresh mr-2"></i>加载更多
         </button>
       </div>
-    </section>
-  </main>
+        </article>
+      </div>
+    </main>
+  
+    <!-- 文档预览模态框 -->
+    <div id="docPreviewModal">
+      <div id="modalContent">
+        <div id="modalHeader">
+          <h2 id="modalTitle"></h2>
+          <button id="closeModalBtn" onclick="closeDocPreview()">&times;</button>
+        </div>
+        <div id="loadingIndicator">
+          <div class="spinner"></div>
+          <p>加载文档中，请稍候...</p>
+        </div>
+        <iframe id="docIframe"></iframe>
+      </div>
+    </div>
 
-  <!-- 页脚 -->
-  <footer class="bg-dark text-white py-10 mt-16">
+    <footer class="bg-dark text-white py-10 mt-16">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="mb-6 md:mb-0">
@@ -292,8 +433,17 @@
       }
     });
 
-    // 分类切换功能
+    // 获取DOM元素
     const categoryButtons = document.querySelectorAll('nav button');
+    const articleCards = document.querySelectorAll('article');
+    const searchInput = document.querySelector('input[placeholder="搜索文章..."]');
+    
+    // 为所有文章卡片添加初始动画样式
+    articleCards.forEach(card => {
+      card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    });
+
+    // 分类切换功能
     categoryButtons.forEach(button => {
       button.addEventListener('click', function() {
         // 移除所有按钮的激活状态
@@ -305,13 +455,31 @@
         this.classList.add('bg-primary', 'text-white');
         this.classList.remove('hover:bg-gray-100', 'text-dark');
         
-        // 这里可以添加文章筛选逻辑
-        console.log('切换到分类:', this.textContent.trim());
+        const category = this.getAttribute('data-category');
+        console.log('切换到分类:', category);
+        
+        // 筛选文章
+        articleCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+            // 添加淡入动画
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            // 添加淡出动画
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+              card.classList.add('hidden');
+            }, 300);
+          }
+        });
       });
     });
 
     // 搜索功能
-    const searchInput = document.querySelector('input[placeholder="搜索文章..."]');
     searchInput.addEventListener('keyup', function(e) {
       if (e.key === 'Enter') {
         console.log('搜索:', this.value);
@@ -320,7 +488,6 @@
     });
 
     // 文章卡片动画
-    const articleCards = document.querySelectorAll('article');
     articleCards.forEach(card => {
       card.addEventListener('mouseenter', function() {
         this.classList.add('translate-y-[-4px]');
@@ -328,6 +495,196 @@
       card.addEventListener('mouseleave', function() {
         this.classList.remove('translate-y-[-4px]');
       });
+    });
+    
+    // 显示Word文档预览
+    function showDocPreview(docUrl, docTitle) {
+      // 阻止默认行为
+      event.preventDefault();
+      
+      const modal = document.getElementById('docPreviewModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const docIframe = document.getElementById('docIframe');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      
+      // 设置标题
+      modalTitle.textContent = docTitle;
+      
+      // 显示加载指示器
+      loadingIndicator.style.display = 'block';
+      docIframe.style.display = 'none';
+      
+      // 显示模态框
+      modal.style.display = 'block';
+      
+      // 设置iframe源并显示内容
+      docIframe.src = docUrl;
+      
+      // 当iframe加载完成时隐藏加载指示器
+      docIframe.onload = function() {
+        loadingIndicator.style.display = 'none';
+        docIframe.style.display = 'block';
+      };
+      
+      // 如果iframe加载失败，显示错误消息
+      docIframe.onerror = function() {
+        loadingIndicator.innerHTML = '<p style="color: #ef4444;">文档加载失败，请尝试直接下载文档。</p>';
+      };
+    }
+    
+    // 关闭文档预览
+    function closeDocPreview() {
+      const modal = document.getElementById('docPreviewModal');
+      const docIframe = document.getElementById('docIframe');
+      
+      // 清空iframe内容以释放资源
+      docIframe.src = 'about:blank';
+      
+      // 隐藏模态框
+      modal.style.display = 'none';
+    }
+    
+    // 显示示例文章内容
+    function showSampleArticle(event) {
+      event.preventDefault();
+      
+      // 从父元素获取文章标题
+      const articleTitle = event.target.closest('article').querySelector('h3').textContent;
+      const category = event.target.closest('article').getAttribute('data-category');
+      
+      // 设置标题
+      document.getElementById('modalTitle').textContent = articleTitle;
+      
+      // 显示加载指示器
+      document.getElementById('loadingIndicator').style.display = 'block';
+      document.getElementById('docIframe').style.display = 'none';
+      
+      // 显示模态框
+      document.getElementById('docPreviewModal').style.display = 'block';
+      
+      // 模拟加载延迟
+      setTimeout(() => {
+        // 根据分类显示不同的示例内容
+        let content = '';
+        if (category === 'hard') {
+          content = '<h2>嵌入式硬件平台选型指南</h2><p>本文详细介绍了嵌入式系统硬件平台选型的关键考虑因素，包括处理器架构、性能指标、功耗分析等方面的内容。</p><h3>1. 处理器架构选择</h3><p>在嵌入式系统设计中，处理器架构的选择至关重要。常见的嵌入式处理器架构包括ARM、MIPS、x86等。ARM架构因其低功耗和高性能的特性，成为嵌入式系统中最常用的架构之一。</p><h3>2. 性能指标评估</h3><p>处理器性能评估主要考虑主频、核心数、缓存大小等因素。不同应用场景对性能的要求差异很大，需要根据实际需求进行选择。</p><h3>3. 功耗分析</h3><p>对于电池供电的嵌入式设备，功耗是一个关键考量因素。需要平衡性能和功耗，选择最合适的处理器。</p>';
+        } else if (category === 'driver') {
+          content = '<h2>Linux驱动开发入门与实践</h2><p>本文介绍了Linux驱动开发的基础知识和实践技巧，帮助开发者快速上手驱动开发。</p><h3>1. Linux驱动架构概述</h3><p>Linux驱动程序是连接硬件和操作系统的桥梁。Linux驱动可以分为字符设备驱动、块设备驱动和网络设备驱动三种主要类型。</p><h3>2. 驱动开发环境搭建</h3><p>搭建驱动开发环境需要准备交叉编译工具链、内核源码和相应的开发板。本文详细介绍了环境搭建的步骤和注意事项。</p><h3>3. 字符设备驱动开发</h3><p>字符设备是最基本的设备类型，本文通过一个简单的LED驱动示例，详细讲解了字符设备驱动的开发流程。</p>';
+        } else if (category === 'mid') {
+          content = '<h2>嵌入式中间件技术解析</h2><p>中间件在嵌入式系统中扮演着重要角色，它能够简化应用开发，提高系统稳定性。</p><h3>1. 嵌入式中间件概述</h3><p>中间件是位于操作系统和应用程序之间的软件层，提供了一系列服务和功能，使得应用程序开发更加简单和高效。</p><h3>2. 常用嵌入式中间件</h3><p>常用的嵌入式中间件包括消息队列、数据库、网络协议栈等。本文详细介绍了这些中间件的特点和应用场景。</p><h3>3. 中间件性能优化</h3><p>在资源受限的嵌入式系统中，中间件的性能优化非常重要。本文介绍了一些常用的优化技巧和方法。</p>';
+        } else if (category === 'tool') {
+          content = '<h2>嵌入式开发必备工具链详解</h2><p>一套高效的工具链对于嵌入式开发至关重要。本文详细介绍了嵌入式开发中常用的工具链，包括交叉编译器、调试器、烧录工具等。</p><h3>1. 交叉编译工具链</h3><p>交叉编译是嵌入式开发的基础，本文介绍了如何搭建和使用交叉编译环境，以及常见的编译优化选项。</p><h3>2. 调试工具</h3><p>调试是嵌入式开发中不可或缺的环节。本文详细介绍了GDB、JTAG调试器等工具的使用方法和技巧。</p><h3>3. 烧录与部署工具</h3><p>烧录工具用于将编译好的程序写入目标设备。本文介绍了常用的烧录工具和部署流程。</p>';
+        }
+        
+        // 创建一个临时HTML文件来显示内容
+        const htmlContent = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + articleTitle + '</title><style>body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; } h1, h2, h3 { color: #333; } p { margin-bottom: 15px; }</style></head><body>' + content + '</body></html>';
+        
+        // 使用Blob和Data URL来显示内容
+        const blob = new Blob([htmlContent], {type: 'text/html'});
+        const iframe = document.getElementById('docIframe');
+        iframe.src = URL.createObjectURL(blob);
+        
+        // 隐藏加载指示器
+        document.getElementById('loadingIndicator').style.display = 'none';
+        iframe.style.display = 'block';
+      }, 500);
+    }
+    
+    // 为PDF文档链接添加点击事件
+    document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const docTitle = this.closest('article').querySelector('h3').textContent;
+        showDocPreview(this.href, docTitle);
+      });
+    });
+    
+    // 优化PDF预览功能，确保显示更清晰
+    function showPdfPreview(pdfUrl, pdfTitle) {
+      // 阻止默认行为
+      if (event) event.preventDefault();
+      
+      const modal = document.getElementById('docPreviewModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const docIframe = document.getElementById('docIframe');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      
+      // 设置标题
+      modalTitle.textContent = pdfTitle;
+      
+      // 显示加载指示器
+      loadingIndicator.style.display = 'block';
+      docIframe.style.display = 'none';
+      
+      // 显示模态框
+      modal.style.display = 'block';
+      
+      // 对于PDF，使用Google Docs Viewer或PDF.js进行预览
+      // 这里使用直接嵌入方式，浏览器通常能很好地处理PDF
+      docIframe.src = pdfUrl;
+      
+      // 当iframe加载完成时隐藏加载指示器
+      docIframe.onload = function() {
+        loadingIndicator.style.display = 'none';
+        docIframe.style.display = 'block';
+      };
+      
+      // 如果iframe加载失败，显示错误消息
+      docIframe.onerror = function() {
+        loadingIndicator.innerHTML = '<p style="color: #ef4444;">PDF加载失败，您可以尝试<a href="' + pdfUrl + '" target="_blank" class="text-primary underline">直接下载</a>该文档。</p>';
+      };
+    }
+    
+    // 覆盖showDocPreview函数，使其优先使用PDF预览
+    function showDocPreview(docUrl, docTitle) {
+      if (docUrl.toLowerCase().endsWith('.pdf')) {
+        showPdfPreview(docUrl, docTitle);
+      } else {
+        // 原始文档预览逻辑
+        const modal = document.getElementById('docPreviewModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const docIframe = document.getElementById('docIframe');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // 设置标题
+        modalTitle.textContent = docTitle;
+        
+        // 显示加载指示器
+        loadingIndicator.style.display = 'block';
+        docIframe.style.display = 'none';
+        
+        // 显示模态框
+        modal.style.display = 'block';
+        
+        // 设置iframe源并显示内容
+        docIframe.src = docUrl;
+        
+        // 当iframe加载完成时隐藏加载指示器
+        docIframe.onload = function() {
+          loadingIndicator.style.display = 'none';
+          docIframe.style.display = 'block';
+        };
+        
+        // 如果iframe加载失败，显示错误消息
+        docIframe.onerror = function() {
+          loadingIndicator.innerHTML = '<p style="color: #ef4444;">文档加载失败，请尝试直接下载文档。</p>';
+        };
+      }
+    }
+    
+    // 点击模态框外部关闭
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('docPreviewModal');
+      if (event.target === modal) {
+        closeDocPreview();
+      }
+    });
+    
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeDocPreview();
+      }
     });
   </script>
 </body>
