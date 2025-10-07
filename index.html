@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Marked.js - Markdown渲染库 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   
   <!-- Tailwind 配置 -->
   <script>
@@ -192,171 +194,12 @@
     <!-- 文章列表 -->
     <section>
       <h2 class="text-xl font-bold mb-6 text-dark/80">最新文章</h2>
-      <div class="space-y-6">
-        <!-- 文章卡片 1 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="hard">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-blue-50 rounded-full mb-3">
-                  <i class="fa fa-microchip mr-1"></i>硬件
-                </span>
-                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
-                  如何选择适合开发的嵌入式开发板
-                </h3>
-              </div>
-              <span class="text-sm text-gray-500">2024-01-15</span>
-            </div>
-            <p class="text-gray-600 line-clamp-3 mb-4">
-              在嵌入式开发中，选择合适的开发板对于项目的成功至关重要。本文将详细介绍如何根据项目需求、性能要求、接口需求等因素来选择最适合的嵌入式开发板，包括STM32、ESP32、Raspberry Pi等常见平台的比较分析。
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-eye mr-1"></i> 1,234
-                </span>
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-comment mr-1"></i> 42
-                </span>
-              </div>
-              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
-                阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 文章卡片 2 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="driver">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <span class="inline-block px-3 py-1 text-xs font-semibold text-green-600 bg-green-50 rounded-full mb-3">
-                  <i class="fa fa-cogs mr-1"></i>驱动
-                </span>
-                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
-                  Linux 设备驱动开发入门指南
-                </h3>
-              </div>
-              <span class="text-sm text-gray-500">2024-01-10</span>
-            </div>
-            <p class="text-gray-600 line-clamp-3 mb-4">
-              Linux设备驱动是连接硬件和操作系统的桥梁。本文从零开始介绍Linux驱动开发的基础知识，包括字符设备驱动的编写、编译和加载，以及如何与用户空间进行数据交互。通过实例代码帮助初学者快速掌握驱动开发的核心概念。
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-eye mr-1"></i> 2,567
-                </span>
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-comment mr-1"></i> 78
-                </span>
-              </div>
-              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
-                阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 文章卡片 3 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="mid">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <span class="inline-block px-3 py-1 text-xs font-semibold text-purple-600 bg-purple-50 rounded-full mb-3">
-                  <i class="fa fa-plug mr-1"></i>中间件
-                </span>
-                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
-                  深入理解MQTT协议在IoT系统中的应用
-                </h3>
-              </div>
-              <span class="text-sm text-gray-500">2024-01-05</span>
-            </div>
-            <p class="text-gray-600 line-clamp-3 mb-4">
-              MQTT是物联网领域最流行的轻量级消息传输协议。本文深入分析MQTT协议的核心特性，包括发布/订阅模式、QoS级别、遗嘱消息等机制，并通过实际项目案例展示如何在IoT系统中高效应用MQTT协议，实现设备间的可靠通信。
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-eye mr-1"></i> 1,890
-                </span>
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-comment mr-1"></i> 56
-                </span>
-              </div>
-              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
-                阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 文章卡片 4 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="tool">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <span class="inline-block px-3 py-1 text-xs font-semibold text-orange-600 bg-orange-50 rounded-full mb-3">
-                  <i class="fa fa-wrench mr-1"></i>工具
-                </span>
-                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
-                  嵌入式开发必备工具链详解
-                </h3>
-              </div>
-              <span class="text-sm text-gray-500">2024-01-01</span>
-            </div>
-            <p class="text-gray-600 line-clamp-3 mb-4">
-              一套高效的工具链对于嵌入式开发至关重要。本文详细介绍了嵌入式开发中常用的工具链，包括交叉编译器、调试器、烧录工具等，以及如何配置和使用这些工具来提高开发效率。同时分享一些实用的工具链优化技巧。
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-eye mr-1"></i> 3,123
-                </span>
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-comment mr-1"></i> 94
-                </span>
-              </div>
-              <a href="#" class="text-primary font-medium hover:text-primary/80 transition-smooth sample-article read-more" onclick="showSampleArticle(event)">
-                阅读更多 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 实际文档卡片 -->
-        <article class="bg-white rounded-lg shadow-sm overflow-hidden shadow-hover" data-category="fw">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <span class="inline-block px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full mb-3">
-                  <i class="fa fa-sitemap mr-1"></i>框架
-                </span>
-                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
-                  软件模块化的目录约定
-                </h3>
-              </div>
-              <span class="text-sm text-gray-500">2023-12-20</span>
-            </div>
-            <p class="text-gray-600 line-clamp-3 mb-4">
-              本文档详细介绍了软件模块化开发的目录结构约定，包括各模块的命名规范、目录层级设计原则、文件组织方式等内容，旨在帮助开发团队建立统一的代码组织结构，提高代码的可维护性和可读性。
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-eye mr-1"></i> 876
-                </span>
-                <span class="text-sm text-gray-500 flex items-center">
-                  <i class="fa fa-comment mr-1"></i> 23
-                </span>
-              </div>
-              <a href="doc/fw/软件模块化的目录约定.pdf" target="_blank" class="text-primary font-medium hover:text-primary/80 transition-smooth flex items-center" onclick="showDocPreview('doc/fw/软件模块化的目录约定.pdf', '软件模块化的目录约定')">
-                <i class="fa fa-file-pdf-o mr-2"></i>打开文档
-              </a>
-            </div>
-          </div>
-        </article>
+      <div class="space-y-6" id="articleContainer">
+        <!-- 文章将在这里动态生成 -->
+        <div class="text-center py-10 text-gray-500">
+          <div class="spinner mx-auto mb-4"></div>
+          <p>正在扫描文档目录，请稍候...</p>
+        </div>
       </div>
 
       <!-- 加载更多按钮 -->
@@ -365,8 +208,7 @@
           <i class="fa fa-refresh mr-2"></i>加载更多
         </button>
       </div>
-        </article>
-      </div>
+    </section>
     </main>
   
     <!-- 文档预览模态框 -->
@@ -500,7 +342,7 @@
     // 显示Word文档预览
     function showDocPreview(docUrl, docTitle) {
       // 阻止默认行为
-      event.preventDefault();
+      if (event) event.preventDefault();
       
       const modal = document.getElementById('docPreviewModal');
       const modalTitle = document.getElementById('modalTitle');
@@ -590,87 +432,125 @@
       }, 500);
     }
     
-    // 为PDF文档链接添加点击事件
+    // 为PDF文档链接添加事件监听器，在新窗口中显示PDF
     document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
+        const pdfUrl = this.getAttribute('href');
         const docTitle = this.closest('article').querySelector('h3').textContent;
-        showDocPreview(this.href, docTitle);
+        
+        // 创建一个新窗口
+        const newWindow = window.open('', '_blank');
+        
+        // 设置新窗口的标题
+        newWindow.document.title = docTitle;
+        
+        // 在新窗口中显示加载状态
+        newWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>${docTitle}</title>
+            <style>
+              body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                flex-direction: column;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              }
+              .pdf-container {
+                width: 100%;
+                height: 100%;
+                flex: 1;
+              }
+              .pdf-container iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+              }
+              .loading-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                text-align: center;
+              }
+              .spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                border-left-color: #3b82f6;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                margin-bottom: 20px;
+              }
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+              .error-message {
+                color: #ef4444;
+                text-align: center;
+                padding: 20px;
+                font-size: 16px;
+              }
+              .error-message a {
+                color: #3b82f6;
+                text-decoration: underline;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="loading-container" id="loadingIndicator">
+              <div class="spinner"></div>
+              <p>正在加载PDF文档，请稍候...</p>
+            </div>
+            <div class="pdf-container" style="display: none;">
+              <iframe id="pdfIframe" src="${pdfUrl}"></iframe>
+            </div>
+            <script>
+              // 监听iframe加载状态
+              const pdfIframe = document.getElementById('pdfIframe');
+              const loadingIndicator = document.getElementById('loadingIndicator');
+              const pdfContainer = document.querySelector('.pdf-container');
+              
+              // 设置加载完成事件
+              pdfIframe.onload = function() {
+                loadingIndicator.style.display = 'none';
+                pdfContainer.style.display = 'block';
+              };
+              
+              // 设置加载超时
+              setTimeout(function() {
+                if (loadingIndicator.style.display !== 'none') {
+                  // 尝试使用Google Docs Viewer作为备选方案
+                  pdfIframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(window.location.origin + '/' + '${pdfUrl}') + '&embedded=true';
+                }
+              }, 5000);
+              
+              // 设置错误处理
+              pdfIframe.onerror = function() {
+                loadingIndicator.innerHTML = 
+                  '<div class="error-message">' +
+                  '<p>PDF加载失败，请尝试以下选项：</p>' +
+                  '<ul style="list-style-type: none; padding: 0;">' +
+                  '<li><a href="${pdfUrl}" target="_blank">直接在新标签页打开</a></li>' +
+                  '<li><a href="${pdfUrl}" download>下载PDF文件</a></li>' +
+                  '</ul>' +
+                  '</div>';
+              };
+            <\/script>
+          <\/body>
+          <\/html>`);
+        
+        // 关闭文档流
+        newWindow.document.close();
       });
     });
-    
-    // 优化PDF预览功能，确保显示更清晰
-    function showPdfPreview(pdfUrl, pdfTitle) {
-      // 阻止默认行为
-      if (event) event.preventDefault();
-      
-      const modal = document.getElementById('docPreviewModal');
-      const modalTitle = document.getElementById('modalTitle');
-      const docIframe = document.getElementById('docIframe');
-      const loadingIndicator = document.getElementById('loadingIndicator');
-      
-      // 设置标题
-      modalTitle.textContent = pdfTitle;
-      
-      // 显示加载指示器
-      loadingIndicator.style.display = 'block';
-      docIframe.style.display = 'none';
-      
-      // 显示模态框
-      modal.style.display = 'block';
-      
-      // 对于PDF，使用Google Docs Viewer或PDF.js进行预览
-      // 这里使用直接嵌入方式，浏览器通常能很好地处理PDF
-      docIframe.src = pdfUrl;
-      
-      // 当iframe加载完成时隐藏加载指示器
-      docIframe.onload = function() {
-        loadingIndicator.style.display = 'none';
-        docIframe.style.display = 'block';
-      };
-      
-      // 如果iframe加载失败，显示错误消息
-      docIframe.onerror = function() {
-        loadingIndicator.innerHTML = '<p style="color: #ef4444;">PDF加载失败，您可以尝试<a href="' + pdfUrl + '" target="_blank" class="text-primary underline">直接下载</a>该文档。</p>';
-      };
-    }
-    
-    // 覆盖showDocPreview函数，使其优先使用PDF预览
-    function showDocPreview(docUrl, docTitle) {
-      if (docUrl.toLowerCase().endsWith('.pdf')) {
-        showPdfPreview(docUrl, docTitle);
-      } else {
-        // 原始文档预览逻辑
-        const modal = document.getElementById('docPreviewModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const docIframe = document.getElementById('docIframe');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        
-        // 设置标题
-        modalTitle.textContent = docTitle;
-        
-        // 显示加载指示器
-        loadingIndicator.style.display = 'block';
-        docIframe.style.display = 'none';
-        
-        // 显示模态框
-        modal.style.display = 'block';
-        
-        // 设置iframe源并显示内容
-        docIframe.src = docUrl;
-        
-        // 当iframe加载完成时隐藏加载指示器
-        docIframe.onload = function() {
-          loadingIndicator.style.display = 'none';
-          docIframe.style.display = 'block';
-        };
-        
-        // 如果iframe加载失败，显示错误消息
-        docIframe.onerror = function() {
-          loadingIndicator.innerHTML = '<p style="color: #ef4444;">文档加载失败，请尝试直接下载文档。</p>';
-        };
-      }
-    }
     
     // 点击模态框外部关闭
     window.addEventListener('click', function(event) {
@@ -686,6 +566,334 @@
         closeDocPreview();
       }
     });
+    
+    // 目录与分类的映射关系
+    const categoryMap = {
+      'hard': { name: '硬件', color: 'text-primary bg-blue-50', icon: 'fa-microchip' },
+      'driver': { name: '驱动', color: 'text-green-600 bg-green-50', icon: 'fa-cogs' },
+      'mid': { name: '中间件', color: 'text-purple-600 bg-purple-50', icon: 'fa-plug' },
+      'tool': { name: '工具', color: 'text-orange-600 bg-orange-50', icon: 'fa-wrench' },
+      'fw': { name: '框架', color: 'text-indigo-600 bg-indigo-50', icon: 'fa-sitemap' }
+    };
+    
+    // 所有文章数据
+    let allArticles = [];
+    let currentCategory = 'all'; // 默认为全部
+    
+    // 为分类按钮添加事件监听器
+    document.querySelectorAll('nav button').forEach(button => {
+      button.addEventListener('click', function() {
+        // 更新当前选中的分类
+        currentCategory = this.getAttribute('data-category');
+        
+        // 切换分类样式
+        document.querySelectorAll('nav button').forEach(btn => {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('hover:bg-gray-100', 'text-dark');
+        });
+        this.classList.add('bg-primary', 'text-white');
+        this.classList.remove('hover:bg-gray-100', 'text-dark');
+        
+        // 过滤并显示文章
+        filterArticlesByCategory(currentCategory);
+      });
+    });
+    
+    // 扫描目录并加载文章
+    async function scanDirectories() {
+      const articleContainer = document.getElementById('articleContainer');
+      
+      try {
+        // 扫描所有分类目录
+        for (const [dir, categoryInfo] of Object.entries(categoryMap)) {
+          try {
+            // 构建目录路径
+            const dirPath = `doc/${dir}/`;
+            
+            // 使用fetch请求目录内容
+            const response = await fetch(dirPath);
+            
+            if (response.ok) {
+              const html = await response.text();
+              
+              // 解析HTML内容提取PDF文件
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, 'text/html');
+              
+              // 获取所有PDF链接
+              const pdfLinks = doc.querySelectorAll('a[href$=".pdf"]');
+              
+              // 处理每个PDF文件
+              for (const link of pdfLinks) {
+                const filename = link.textContent.trim();
+                const filePath = `${dirPath}${filename}`;
+                
+                // 从文件名中提取标题（去除.pdf后缀）
+                const title = filename.replace(/\.pdf$/i, '');
+                
+                // 生成默认摘要
+                const summary = `查看${categoryInfo.name}分类下的文档：${title}`;
+                
+                // 生成随机但固定的阅读数和评论数
+                const views = Math.floor(Math.random() * 2000) + 100;
+                const comments = Math.floor(Math.random() * 100);
+                
+                // 添加到文章列表
+                allArticles.push({
+                  title,
+                  summary,
+                  category: dir,
+                  categoryInfo,
+                  filePath,
+                  date: new Date().toISOString().split('T')[0], // 实际应用中可以从文件元数据获取
+                  views,
+                  comments
+                });
+              }
+            }
+          } catch (error) {
+            console.warn(`无法扫描目录 doc/${dir}/:`, error);
+          }
+        }
+        
+        // 按文件名排序（字母顺序）
+        allArticles.sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
+        
+        // 初始显示所有文章
+        filterArticlesByCategory('all');
+        
+      } catch (error) {
+        console.error('扫描目录出错:', error);
+        articleContainer.innerHTML = `
+          <div class="text-center py-10 text-red-500">
+            <i class="fa fa-exclamation-circle text-4xl mb-4"></i>
+            <p>扫描文档目录失败，请刷新页面重试</p>
+          </div>
+        `;
+      }
+    }
+    
+    // 根据分类过滤文章
+    function filterArticlesByCategory(category) {
+      const articleContainer = document.getElementById('articleContainer');
+      
+      // 清空当前列表
+      articleContainer.innerHTML = '';
+      
+      // 根据分类筛选文章
+      let filteredArticles = [];
+      if (category === 'all') {
+        // 每个子类只保留1项，且只显示有文章的子类
+        const categoryMap = {};
+        allArticles.forEach(article => {
+          if (!categoryMap[article.category]) {
+            categoryMap[article.category] = article;
+            filteredArticles.push(article);
+          }
+        });
+      } else {
+        filteredArticles = allArticles.filter(article => article.category === category);
+      }
+      
+      // 如果没有文章，显示空状态
+      if (filteredArticles.length === 0) {
+        articleContainer.innerHTML = `
+          <div class="text-center py-10 text-gray-500">
+            <i class="fa fa-folder-open-o text-4xl mb-4"></i>
+            <p>该分类下暂无文档</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // 创建并添加文章卡片
+      filteredArticles.forEach(article => {
+        const articleElement = document.createElement('article');
+        articleElement.className = 'bg-white rounded-lg shadow-sm overflow-hidden shadow-hover';
+        articleElement.setAttribute('data-category', article.category);
+        
+        articleElement.innerHTML = `
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <span class="inline-block px-3 py-1 text-xs font-semibold ${article.categoryInfo.color} rounded-full mb-3">
+                  <i class="fa ${article.categoryInfo.icon} mr-1"></i>${article.categoryInfo.name}
+                </span>
+                <h3 class="text-xl font-bold text-dark hover:text-primary transition-smooth cursor-pointer">
+                  ${article.title}
+                </h3>
+              </div>
+              <span class="text-sm text-gray-500">${article.date}</span>
+            </div>
+            <p class="text-gray-600 line-clamp-3 mb-4">
+              ${article.summary}
+            </p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-500 flex items-center">
+                  <i class="fa fa-eye mr-1"></i> ${article.views.toLocaleString()}
+                </span>
+                <span class="text-sm text-gray-500 flex items-center">
+                  <i class="fa fa-comment mr-1"></i> ${article.comments}
+                </span>
+              </div>
+              <a href="${article.filePath}" class="text-primary font-medium hover:text-primary/80 transition-smooth flex items-center pdf-link">
+                <i class="fa fa-file-pdf-o mr-2"></i>打开文档
+              </a>
+            </div>
+          </div>
+        `;
+        
+        articleContainer.appendChild(articleElement);
+      });
+      
+      // 为新生成的PDF链接添加事件监听器
+      addPdfLinkListeners();
+    }
+    
+    // 为PDF文档链接添加事件监听器，在新窗口中显示PDF
+    function addPdfLinkListeners() {
+      document.querySelectorAll('.pdf-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const pdfUrl = this.getAttribute('href');
+          const docTitle = this.closest('article').querySelector('h3').textContent;
+          
+          // 创建一个新窗口
+          const newWindow = window.open('', '_blank');
+          
+          // 设置新窗口的标题
+          newWindow.document.title = docTitle;
+          
+          // 在新窗口中显示加载状态
+          newWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="UTF-8">
+              <title>${docTitle}</title>
+              <style>
+                body {
+                  margin: 0;
+                  padding: 0;
+                  height: 100vh;
+                  width: 100vw;
+                  display: flex;
+                  flex-direction: column;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                }
+                .pdf-container {
+                  width: 100%;
+                  height: 100%;
+                  flex: 1;
+                }
+                .pdf-container iframe {
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                }
+                .loading-container {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  height: 100vh;
+                  text-align: center;
+                }
+                .spinner {
+                  border: 4px solid rgba(0, 0, 0, 0.1);
+                  border-left-color: #3b82f6;
+                  border-radius: 50%;
+                  width: 40px;
+                  height: 40px;
+                  animation: spin 1s linear infinite;
+                  margin-bottom: 20px;
+                }
+                @keyframes spin {
+                  to { transform: rotate(360deg); }
+                }
+                .error-message {
+                  color: #ef4444;
+                  text-align: center;
+                  padding: 20px;
+                  font-size: 16px;
+                }
+                .error-message a {
+                  color: #3b82f6;
+                  text-decoration: underline;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="loading-container" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>正在加载PDF文档，请稍候...</p>
+              </div>
+              <div class="pdf-container" style="display: none;">
+                <iframe id="pdfIframe" src="${pdfUrl}"></iframe>
+              </div>
+              <script>
+                // 监听iframe加载状态
+                const pdfIframe = document.getElementById('pdfIframe');
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                const pdfContainer = document.querySelector('.pdf-container');
+                
+                // 设置加载完成事件
+                pdfIframe.onload = function() {
+                  loadingIndicator.style.display = 'none';
+                  pdfContainer.style.display = 'block';
+                };
+                
+                // 设置加载超时
+                setTimeout(function() {
+                  if (loadingIndicator.style.display !== 'none') {
+                    // 尝试使用Google Docs Viewer作为备选方案
+                    pdfIframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(window.location.origin + '/' + '${pdfUrl}') + '&embedded=true';
+                  }
+                }, 5000);
+                
+                // 设置错误处理
+                pdfIframe.onerror = function() {
+                  loadingIndicator.innerHTML = 
+                    '<div class="error-message">' +
+                    '<p>PDF加载失败，请尝试以下选项：</p>' +
+                    '<ul style="list-style-type: none; padding: 0;">' +
+                    '<li><a href="${pdfUrl}" target="_blank">直接在新标签页打开</a></li>' +
+                    '<li><a href="${pdfUrl}" download>下载PDF文件</a></li>' +
+                    '</ul>' +
+                    '</div>';
+                };
+              <\/script>
+            <\/body>
+            <\/html>`);
+          
+          // 关闭文档流
+          newWindow.document.close();
+        });
+      });
+    }
+    
+    // 添加spinner样式
+    const style = document.createElement('style');
+    style.textContent = `
+      .spinner {
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top: 3px solid #3b82f6;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 初始化页面，扫描目录加载文章
+    window.addEventListener('DOMContentLoaded', scanDirectories);
   </script>
 </body>
 </html>
