@@ -604,56 +604,50 @@
       const articleContainer = document.getElementById('articleContainer');
       
       try {
-        // 扫描所有分类目录
-        for (const [dir, categoryInfo] of Object.entries(categoryMap)) {
-          try {
-            // 构建目录路径
-            const dirPath = `doc/${dir}/`;
-            
-            // 使用fetch请求目录内容
-            const response = await fetch(dirPath);
-            
-            if (response.ok) {
-              const html = await response.text();
-              
-              // 解析HTML内容提取PDF文件
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(html, 'text/html');
-              
-              // 获取所有PDF链接
-              const pdfLinks = doc.querySelectorAll('a[href$=".pdf"]');
-              
-              // 处理每个PDF文件
-              for (const link of pdfLinks) {
-                const filename = link.textContent.trim();
-                const filePath = `${dirPath}${filename}`;
-                
-                // 从文件名中提取标题（去除.pdf后缀）
-                const title = filename.replace(/\.pdf$/i, '');
-                
-                // 生成默认摘要
-                const summary = `查看${categoryInfo.name}分类下的文档：${title}`;
-                
-                // 生成随机但固定的阅读数和评论数
-                const views = Math.floor(Math.random() * 2000) + 100;
-                const comments = Math.floor(Math.random() * 100);
-                
-                // 添加到文章列表
-                allArticles.push({
-                  title,
-                  summary,
-                  category: dir,
-                  categoryInfo,
-                  filePath,
-                  date: new Date().toISOString().split('T')[0], // 实际应用中可以从文件元数据获取
-                  views,
-                  comments
-                });
-              }
-            }
-          } catch (error) {
-            console.warn(`无法扫描目录 doc/${dir}/:`, error);
-          }
+        // 直接列出已知的文档文件，避免依赖服务器的目录浏览功能
+        // 这样即使在服务器上目录浏览被禁用，也能正常显示文档
+        const knownDocuments = [
+          // 硬件分类文档
+          { path: 'doc/hard/热敏打印机基础--步进电机.pdf', category: 'hard' },
+          { path: 'doc/hard/热敏打印机基础--硬件基础.pdf', category: 'hard' },
+          // 驱动分类文档
+          // driver目录目前似乎为空
+          // 中间件分类文档
+          { path: 'doc/mid/bmp位图.pdf', category: 'mid' },
+          // 工具分类文档
+          { path: 'doc/tool/对外头文件及API文档自动生成设计.pdf', category: 'tool' },
+          // 框架分类文档
+          { path: 'doc/fw/软件模块化的目录约定.pdf', category: 'fw' }
+        ];
+        
+        // 处理每个已知文档
+        for (const doc of knownDocuments) {
+          const filePath = doc.path;
+          const category = doc.category;
+          const categoryInfo = categoryMap[category];
+          
+          // 从文件路径中提取文件名和标题
+          const filename = filePath.split('/').pop();
+          const title = filename.replace(/\.pdf$/i, '');
+          
+          // 生成默认摘要
+          const summary = `查看${categoryInfo.name}分类下的文档：${title}`;
+          
+          // 生成随机但固定的阅读数和评论数
+          const views = Math.floor(Math.random() * 2000) + 100;
+          const comments = Math.floor(Math.random() * 100);
+          
+          // 添加到文章列表
+          allArticles.push({
+            title,
+            summary,
+            category,
+            categoryInfo,
+            filePath,
+            date: new Date().toISOString().split('T')[0], // 实际应用中可以从文件元数据获取
+            views,
+            comments
+          });
         }
         
         // 按文件名排序（字母顺序）
@@ -663,11 +657,11 @@
         filterArticlesByCategory('all');
         
       } catch (error) {
-        console.error('扫描目录出错:', error);
+        console.error('加载文档出错:', error);
         articleContainer.innerHTML = `
           <div class="text-center py-10 text-red-500">
             <i class="fa fa-exclamation-circle text-4xl mb-4"></i>
-            <p>扫描文档目录失败，请刷新页面重试</p>
+            <p>加载文档失败，请刷新页面重试</p>
           </div>
         `;
       }
